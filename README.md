@@ -26,12 +26,12 @@ Create a [Chart.js](https://www.chartjs.org/) using [TablePress](https://tablepr
     - [0.1](#v01)
 - [Credits](#Credits)
 
-## About<a id="att_id"></a>
+## About<a id="About"></a>
 
 This plugin code base and idea is a modification of [TablePress Extension: Chartist](https://github.com/soderlind/tablepress_chartist).
 
 
-## Usage<a id="att_id"></a>
+## Usage<a id="Usage"></a>
 
 Use the Shortcode `tp-chartjs`
 
