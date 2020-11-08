@@ -35,6 +35,8 @@ This plugin code base and idea is a modification of [TablePress Extension: Chart
 
 Use the Shortcode `tp-chartjs`
 
+Example:
+
     [tp-chartjs id=1 label=A data=B,C/]
 
 To create a chart from the TablePress ID `1` where labes are column `A`, and dataset points are columns `B` and `C`.
@@ -97,14 +99,14 @@ The colors you can use in populated lines or bars.
 
 * **Example:** `[tp-chartjs id=1 label=A data=B,C color=blue,red/]`
 * **Values:** One or more comma separated colors
-    * `blue`
-    * `red`
-    * `orange`
-    * `yellow`
-    * `green`
-    * `purple`
-    * `grey`
-    * `black`
+    * ![#36a2eb](https://via.placeholder.com/15/36a2eb/000000?text=+) `blue`
+    * ![#ff6384](https://via.placeholder.com/15/ff6384/000000?text=+) `red`
+    * ![#ff9f40](https://via.placeholder.com/15/ff9f40/000000?text=+) `orange`
+    * ![#ffcd56](https://via.placeholder.com/15/ffcd56/000000?text=+) `yellow`
+    * ![#4bc0c0](https://via.placeholder.com/15/4bc0c0/000000?text=+) `green`
+    * ![#9966ff](https://via.placeholder.com/15/9966ff/000000?text=+) `purple`
+    * ![#c9cbcf](https://via.placeholder.com/15/c9cbcf/000000?text=+) `grey`
+    * ![#000000](https://via.placeholder.com/15/000000/000000?text=+) `black`
 * **Default:** `blue,red,orange,yellow,green,purple,grey,black`
 
 On example column `B` draws `blue` and column `C` draws `red`
