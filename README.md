@@ -3,37 +3,48 @@
 Create a [Chart.js](https://www.chartjs.org/) using [TablePress](https://tablepress.org/) as data source for [WordPress](https://wordpress.org/download/)
 
 
+![GitHub](https://img.shields.io/github/license/developarts/tablepress_chartjs?style=for-the-badge)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/developarts/tablepress_chartjs?style=for-the-badge)
+![GitHub All Releases](https://img.shields.io/github/downloads/developarts/tablepress_chartjs/total?style=for-the-badge)
+[![Donate with PayPal](https://img.shields.io/badge/PayPal-Donate-yellow.svg?style=for-the-badge)](https://www.paypal.me/developarts)
+
 
 ## Index
 
 - [About](#About)
-- [Usage](#Usage)
 - [Install](#Install)
-- [Attributes](#Attributes)
-    - [`id`](#att_id)
-    - [`label`](#att_label)
-    - [`data`](#att_data)
-    - [`chart`](#att_chart)
-    - [`color`](#att_color)
-    - [`height`](#att_height)
-    - [`first`](#att_first)
-    - [`last`](#att_last)
+- [Usage](#Usage)
+- [Parameters](#Parameters)
+    - [`id`](#param_id)
+    - [`label`](#param_label)
+    - [`data`](#param_data)
+    - [`chart`](#param_chart)
+    - [`color`](#param_color)
+    - [`height`](#param_height)
+    - [`first`](#param_first)
+    - [`last`](#param_last)
 - [Donate to Developer](#Donate)
 - [ToDo](#ToDo)
-- [Changelog](#Changelog)
-    - [Unreleased](#Unreleased)
-    - [0.2](#v02)
-    - [0.1](#v01)
 - [Credits](#Credits)
+- [Changelog](https://github.com/developarts/tablepress_chartjs/blob/main/README.md)
 
 ## About<a id="About"></a>
 
 This plugin code base and idea is a modification of [TablePress Extension: Chartist](https://github.com/soderlind/tablepress_chartist).
 
 
+## Install<a id="Install"></a>
+
+Prerequisite: The [TablePress](https://tablepress.org/) plugin
+
+1. [Download](https://github.com/developarts/tablepress_chartjs/releases/latest) and extract the ZIP file.
+2. Move the folder "tablepress_chartjs" to the "wp-content/plugins/" directory of your WordPress installation, e.g. via FTP.
+3. Activate the plugin "TablePress" on the "Plugins" screen of your WordPress Dashboard.
+
+
 ## Usage<a id="Usage"></a>
 
-Use the Shortcode `tp-chartjs`
+Use the Shortcode `[tp-chartjs id=N /]`
 
 Example:
 
@@ -48,14 +59,9 @@ Result:
 ![Chartjs Usage](assets/chart_usage.png)
 
 
-## Install<a id="Install"></a>
+## Parameters<a id="Parameters"></a>
 
-Prerequisite: The [TablePress](https://tablepress.org/) plugin
-
-
-## Attributes<a id="att_id"></a>
-
-#### `id`<a id="att_id"></a>
+#### `id`<a id="param_id"></a>
 
 TablePress ID reference
 
@@ -64,7 +70,7 @@ TablePress ID reference
 * **Required**
 
 
-#### `label`<a id="att_label"></a>
+#### `label`<a id="param_label"></a>
 
 Column Axis label
 
@@ -73,7 +79,7 @@ Column Axis label
 * **Default:** `A`
 
 
-#### `data`<a id="att_data"></a>
+#### `data`<a id="param_data"></a>
 
 Column(s) datasets used to populate chart
 
@@ -82,7 +88,7 @@ Column(s) datasets used to populate chart
 * **Default:** `B`
 
 
-#### `chart`<a id="att_chart"></a>
+#### `chart`<a id="param_chart"></a>
 
 Chart type used
 
@@ -93,7 +99,7 @@ Chart type used
 * **Default:** `line`
 
 
-#### `color`<a id="att_color"></a>
+#### `color`<a id="param_color"></a>
 
 The colors you can use in populated lines or bars.
 
@@ -112,7 +118,7 @@ The colors you can use in populated lines or bars.
 On example column `B` draws `blue` and column `C` draws `red`
 
 
-#### `height`<a id="att_height"></a>
+#### `height`<a id="param_height"></a>
 
 Declare height of `canvas` HTML object
 
@@ -120,7 +126,7 @@ Declare height of `canvas` HTML object
 * **Values:** Integer value transformed into pixels
 * **Default:** Automatic
 
-#### `first`<a id="att_first"></a>
+#### `first`<a id="param_first"></a>
 
 Declare that only use the first `{n}` rows of data
 
@@ -129,7 +135,7 @@ Declare that only use the first `{n}` rows of data
 * **Default:** All data
 
 
-#### `last`<a id="att_last"></a>
+#### `last`<a id="param_last"></a>
 
 Declare that only use the last `{n}` rows of data
 
@@ -153,38 +159,6 @@ If you like my work, please donate to help me.
 - [ ] Time Series chart support
 - [ ] Stacked chart support
 
-
-## Changelog<a id="Changelog"></a>
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-### [Unreleased]<a id="Unreleased"></a>
-
-### [0.2] - 2020-11-06<a id="v02"></a>
-
-#### Added
-- New attribute `height` for the canvas object
-- New attribute `color={color1,color2,..n}` comma separator
-- Supported colors [blue,red,orange,yellow,green,purple,grey,black]
-- New attribute `first={n}` show only `{n}` first rows
-- New attribute `last={n}` show only `{n}` last rows
-
-#### Changed
-- Attribute `data` now accept A-Z to correspond TablePress columns
-- Attribute `dimension` to `label` attribute
-- `_maybe_string_to_number` RegExp
-
-
-### [0.1] - 2020-11-01<a id="v01"></a>
-- Initial release
-
-
-[Unreleased]: https://github.com/developarts/tablepress_chartjs/tree/main
-[0.2]: https://github.com/developarts/tablepress_chartjs/commit/c8701c23997335aa0fc04c4509818ea25bb88d48
-[0.1]: https://github.com/developarts/tablepress_chartjs/commit/0ae2f6e3f8bfa2c9982f9b4bdde2a1fb97fa7b67
 
 
 ## Credits<a id="Credits"></a>
