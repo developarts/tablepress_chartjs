@@ -3,7 +3,7 @@
 Plugin Name: TablePress Extension: Chart.js
 Plugin URI: https://github.com/developarts/tablepress_chartjs
 Description: Extension for TablePress to create a responsive Chart.js based on the data in a TablePress table.
-Version: 0.2
+Version: 0.3
 Author: Alejandro García
 Author URI: https://developarts.com
 License: GPL
@@ -18,10 +18,11 @@ defined('ABSPATH') || die('No direct script access allowed!');
 add_action('tablepress_run', ['TablePress_Chartjs', 'init']);
 
 /**
- * Class that contains the TablePress Chart.js Extension functionality.
+ * Class that contains the TablePress chartjs Extension functionality.
  *
  * @author Per Soderlind, Tobias Bäthge
- * @author DevelopArts, Alejandro García
+ *
+ * @since 0.1
  */
 class TablePress_Chartjs
 {
@@ -29,7 +30,7 @@ class TablePress_Chartjs
      * Version number of the Extension.
      * @var string
      */
-    protected static $version = '0.2';
+    protected static $version = '0.3';
 
     /**
      * Available Shortcode attributes, without the `chartjs_` prefix.
@@ -64,14 +65,14 @@ class TablePress_Chartjs
      * @var array
      */
     protected static $colors = array(
-        'blue'      => 'rgb(54, 162, 235)',
-        'red'       => 'rgb(255, 99, 132)',
-        'orange'    => 'rgb(255, 159, 64)',
-        'yellow'    => 'rgb(255, 205, 86)',
-        'green'     => 'rgb(75, 192, 192)',
-        'purple'    => 'rgb(153, 102, 255)',
-        'grey'      => 'rgb(201, 203, 207)',
-        'black'     => 'rgb(0, 0, 0)',
+        'blue',
+        'red',
+        'orange',
+        'yellow',
+        'green',
+        'purple',
+        'grey',
+        'black',
     );
 
 
@@ -124,6 +125,7 @@ class TablePress_Chartjs
         if (is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'tp-chartjs')) {
             $dir = plugin_dir_url(__FILE__);
             wp_enqueue_script('chartjs', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js', ['jquery'], '', true);
+            wp_enqueue_script( 'chartjs-tools', $dir . 'assets/js/tablepress_chartjs_tools.js', array( 'jquery' ), self::$version, true );
         }
     }
 
@@ -156,25 +158,62 @@ class TablePress_Chartjs
     public static function generate_chart ($output, $table, $render_options)
     {
 
+        /*
+        $table['id']
+        $table['name']
+        $table['description']
+        $table['last_modified']
+        $table['data'][0] // Column names
+        $render_options['chartjs_chart']
+        $render_options['chartjs_label']
+        $render_options['chartjs_data']
+        $render_options['chartjs_color']
+        $render_options['chartjs_height']
+        $render_options['chartjs_width']
+        */
+
+
         if (!$render_options['chartjs']) {
             return $output;
         }
 
+        // Declare compiling var
+        $chartjs = [];
+        $chartjs['options'] = array(
+            'x_staked' => 'false',
+            'y_staked' => 'false',
+            'pointRadius' => 2,
+            'borderWidth' => 3
+        );
+
 
         // Determine/sanitize the chart type and add JS calculation functions.
         switch (strtolower($render_options['chartjs_chart'])) {
+            case 'bar':
+                $chart = 'bar';
+                $chartjs['options']['borderWidth'] = 1;
+                break;
             case 'hbar':
                 $chart = 'horizontalBar';
+                $chartjs['options']['borderWidth'] = 1;
+                break;
+            case 'sbar':
+                $chart = 'bar';
+                $chartjs['options']['x_staked'] = 'true';
+                $chartjs['options']['y_staked'] = 'true';
+                $chartjs['options']['borderWidth'] = 1;
+                break;
+            case 'hsbar':
+                $chart = 'horizontalBar';
+                $chartjs['options']['x_staked'] = 'true';
+                $chartjs['options']['y_staked'] = 'true';
+                $chartjs['options']['borderWidth'] = 1;
                 break;
             case 'line':
             default:
                 $chart = 'line';
                 break;
         }
-
-
-        // Declare
-        $datasets = [];
 
         // Read all data columns
         foreach ($table['data'][0] as $key => $column) {
@@ -197,8 +236,7 @@ class TablePress_Chartjs
             $datasets[$letter]['data'] = $tempdata;
         }
 
-        // Declare compiling var
-        $chartjs = [];
+
 
         // label
         if (!in_array(strtolower($render_options['chartjs_label']), array_keys($datasets))) {
@@ -206,11 +244,18 @@ class TablePress_Chartjs
         }
         $chartjs['label'] = json_encode($datasets[strtolower($render_options['chartjs_label'])]['data']);
 
+        // show or not pointRadius
+        if (count($datasets[strtolower($render_options['chartjs_label'])]['data']) > 50) {
+            $chartjs['options']['pointRadius'] = 0;
+        }
+
+
+
         // Colors
         $vcolors = explode(',', $render_options['chartjs_color']);
         $acolors = [];
         foreach ($vcolors as $key => $value) {
-            $acolors[] = self::$colors[$value];
+            $acolors[] = $value;
         }
 
         // Data Sets
@@ -220,6 +265,8 @@ class TablePress_Chartjs
         do {
             $acolors = array_merge($acolors, $acolors);
         } while (count($acolors) <= count($vdata));
+
+
 
 
         // Data organi
@@ -240,10 +287,10 @@ class TablePress_Chartjs
             $chartjs['ds'][] = "{
                 label: '{$dvalue['title']}',
                 fill: false,
-                backgroundColor: '{$dvalue['color']}',
-                borderColor: '{$dvalue['color']}',
-                pointRadius: .1,
-                pointHoverRadius: 5,
+                borderColor: window.chartColors.{$dvalue['color']}.line,
+                backgroundColor: window.chartColors.{$dvalue['color']}.bg,
+                pointRadius: {$chartjs['options']['pointRadius']},
+                borderWidth: {$chartjs['options']['borderWidth']},
                 data: {$dvalue['json']},
             }";
         }
@@ -262,6 +309,7 @@ class TablePress_Chartjs
         }
 
         $chartjs_divtag = "<div style=\"width:100%;\"><canvas id=\"canvas_{$htmlkey}\"$canvas_size></canvas></div>\n";
+
 
         $chartjs_script = <<<JS
 <script type="text/javascript">
@@ -284,32 +332,32 @@ class TablePress_Chartjs
 				},
 				hover: {
 					mode: 'nearest',
-					intersect: true
+					intersect: true,
 				},
 				scales: {
 					xAxes: [{
 						display: true,
-						scaleLabel: { display: false, labelString: '', },
+                        stacked: {$chartjs['options']['x_staked']},
+						scaleLabel: {
+                            display: false,
+                            labelString: '',
+                        },
                         ticks: {
                             callback: function(value, index, values) {
-                                if (isNaN(value)) {
-                                    return value;
-                                } else {
-                                    return Intl.NumberFormat("es-MX").format((value));
-                                }
+                                return tpc_axis_number_format(value);
                             }
                         }
 					}],
 					yAxes: [{
 						display: true,
-						scaleLabel: { display: false, labelString: '', },
+                        stacked: {$chartjs['options']['y_staked']},
+						scaleLabel: {
+                            display: false,
+                            labelString: '',
+                        },
                         ticks: {
                             callback: function(value, index, values) {
-                                if (isNaN(value)) {
-                                    return value;
-                                } else {
-                                    return Intl.NumberFormat("es-MX").format((value));
-                                }
+                                return tpc_axis_number_format(value);
                             }
                         }
 					}]
