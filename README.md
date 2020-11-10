@@ -4,7 +4,7 @@ Create a [Chart.js](https://www.chartjs.org/) using [TablePress](https://tablepr
 
 
 ![GitHub](https://img.shields.io/github/license/developarts/tablepress_chartjs?style=for-the-badge)
-![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/developarts/tablepress_chartjs?style=for-the-badge)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/release/developarts/tablepress_chartjs?style=for-the-badge)
 ![GitHub All Releases](https://img.shields.io/github/downloads/developarts/tablepress_chartjs/total?style=for-the-badge)
 [![Donate with PayPal](https://img.shields.io/badge/PayPal-Donate-yellow.svg?style=for-the-badge)](https://www.paypal.me/developarts)
 
@@ -16,9 +16,9 @@ Create a [Chart.js](https://www.chartjs.org/) using [TablePress](https://tablepr
 - [Usage](#Usage)
 - [Parameters](#Parameters)
     - [`id`](#param_id)
+    - [`chart`](#param_chart)
     - [`label`](#param_label)
     - [`data`](#param_data)
-    - [`chart`](#param_chart)
     - [`color`](#param_color)
     - [`height`](#param_height)
     - [`first`](#param_first)
@@ -39,7 +39,7 @@ Prerequisite: The [TablePress](https://tablepress.org/) plugin
 
 1. [Download](https://github.com/developarts/tablepress_chartjs/releases/latest) and extract the ZIP file.
 2. Move the folder "tablepress_chartjs" to the "wp-content/plugins/" directory of your WordPress installation, e.g. via FTP.
-3. Activate the plugin "TablePress" on the "Plugins" screen of your WordPress Dashboard.
+3. Activate the plugin "TablePress Extension: Chart.js" on the "Plugins" screen of your WordPress Dashboard.
 
 
 ## Usage<a id="Usage"></a>
@@ -70,6 +70,20 @@ TablePress ID reference
 * **Required**
 
 
+#### `chart`<a id="param_chart"></a>
+
+Chart type used
+
+* **Example:** `[tp-chartjs id=1 label=A data=B,C chart=line/]`
+* **Values:** Select one of this
+    * `line`: Vertical
+    * `bar`: Vertical Bar
+    * `sbar`: Stacked Vertical Bar
+    * `hbar`: Horizontal Bar
+    * `hsbar`: Horizontal Stacked Bar
+* **Default:** `line`
+
+
 #### `label`<a id="param_label"></a>
 
 Column Axis label
@@ -86,17 +100,6 @@ Column(s) datasets used to populate chart
 * **Example:** `[tp-chartjs id=1 label=A data=B,C,D,E/]`
 * **Values:** One or more comma separated columns character [A-Z]
 * **Default:** `B`
-
-
-#### `chart`<a id="param_chart"></a>
-
-Chart type used
-
-* **Example:** `[tp-chartjs id=1 label=A data=B,C chart=line/]`
-* **Values:** Select one of this
-    * `line`: Line
-    * `hbar`: Vertical Bar
-* **Default:** `line`
 
 
 #### `color`<a id="param_color"></a>
