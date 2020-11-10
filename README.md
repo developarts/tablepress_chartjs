@@ -1,7 +1,9 @@
 # TablePress Extension: Chart.js
 
+
 Create a [Chart.js](https://www.chartjs.org/) using [TablePress](https://tablepress.org/) as data source for [WordPress](https://wordpress.org/download/)
 
+![Banner](https://developarts.com/bl-content/uploads/tpchartjs_banner.png)
 
 ![GitHub](https://img.shields.io/github/license/developarts/tablepress_chartjs?style=for-the-badge)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/release/developarts/tablepress_chartjs?style=for-the-badge)
@@ -52,11 +54,11 @@ Example:
 
 To create a chart from the TablePress ID `1` where labes are column `A`, and dataset points are columns `B` and `C`.
 
-![TablePress Usage](assets/tp_usage.png)
+![TablePress Usage](https://developarts.com/bl-content/uploads/tp_usage.png)
 
 Result:
 
-![Chartjs Usage](assets/chart_usage.png)
+![Chartjs Usage](https://developarts.com/bl-content/uploads/chart_usage.png)
 
 
 ## Parameters<a id="Parameters"></a>
@@ -151,7 +153,7 @@ Declare that only use the last `{n}` rows of data
 
 If you like my work, please donate to help me.
 
-[![Donate to Developer](assets/button-donate.png)](https://www.paypal.com/donate?hosted_button_id=ZXY9DM6PTWB8C)
+[![Donate to Developer](https://developarts.com/bl-content/uploads/button-donate.png)](https://www.paypal.com/donate?hosted_button_id=ZXY9DM6PTWB8C)
 
 
 ## ToDo<a id="ToDo"></a>
