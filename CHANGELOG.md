@@ -12,10 +12,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support Vertical Bar charts
 - Support Vertical Stacked Bar charts
 - Support Vertical Stacked Bar charts
+- Error management
+- CSS file for error boxes
+- Shows table title
+- On Datasets now distinguishes "" (empty) as `NaN` and `0` as value
 
 ### Changed
 - Colors now is controlled in JavaScript
+- Color array simplificated
+- Procedure to obtain datasets now is optimized
 
+### Fix
+- `first` and `lst` now works correctly
 
 ## [0.2.0] - 2020-11-06
 
@@ -38,5 +46,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 
 [Unreleased]: https://github.com/developarts/tablepress_chartjs/tree/main
-[0.2]: https://github.com/developarts/tablepress_chartjs/compare/0.1.0...0.2.0
-[0.1]: https://github.com/developarts/tablepress_chartjs/commit/0ae2f6e3f8bfa2c9982f9b4bdde2a1fb97fa7b67
+[0.2.0]: https://github.com/developarts/tablepress_chartjs/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/developarts/tablepress_chartjs/commit/0ae2f6e3f8bfa2c9982f9b4bdde2a1fb97fa7b67
