@@ -126,6 +126,7 @@ class TablePress_Chartjs
             $dir = plugin_dir_url(__FILE__);
             wp_enqueue_script('chartjs', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js', ['jquery'], '', true);
             wp_enqueue_script( 'chartjs-tools', $dir . 'assets/js/tablepress_chartjs_tools.js', array( 'jquery' ), self::$version, true );
+            wp_enqueue_style( 'chartjs-css', $dir . 'assets/css/tablepress_chartjs.css', array(), self::$version );
         }
     }
 
@@ -180,6 +181,7 @@ class TablePress_Chartjs
         // Declare compiling var
         $chartjs = [];
         $chartjs['options'] = array(
+            'title' => $table['name'],
             'x_staked' => 'false',
             'y_staked' => 'false',
             'pointRadius' => 2,
@@ -215,87 +217,83 @@ class TablePress_Chartjs
                 break;
         }
 
-        // Read all data columns
-        foreach ($table['data'][0] as $key => $column) {
-            $letter = self::$columns[$key]; // column letter
-            $tempdata = [];
 
-            $tempdata = array_column($table['data'], $key); // all data in array
-            array_shift($tempdata); // Delete first row (name of column)
+        $tpcjs = [];
+
+        $tpcjs['params']['label'] = strtolower($render_options['chartjs_label']);
+        $tpcjs['params']['data'] = explode(',', strtolower($render_options['chartjs_data']));
+        $tpcjs['params']['columns'] = strtolower(implode(',', array($render_options['chartjs_label'], $render_options['chartjs_data'])));
+
+        // First Validations
+        if (!in_array($tpcjs['params']['label'] , self::$columns)) {
+            return self::_error_box('[label]', "Declared label '{$render_options['chartjs_label']}' is not a accepted char [A-Z]");
+        }
+        foreach ($tpcjs['params']['data'] as $value) {
+            if (!in_array($value, self::$columns)) {
+                return self::_error_box('[data]', "One o some datasets declared '$value' is not a accepted char [A-Z]");
+            }
+        }
+        if (in_array($tpcjs['params']['label'], $tpcjs['params']['data'])) {
+            return self::_error_box('[data]', "You can't use label '{$render_options['chartjs_label']}' as dataset");
+        }
+
+
+
+        $colors = explode(',', $render_options['chartjs_color']);
+
+
+
+        // data
+        foreach (explode(',', $tpcjs['params']['columns']) as $letter) {
+            $tempdata = [];
+            $tempdata = array_column($table['data'], array_search($letter, self::$columns));
+            $name = $tempdata[0];
+            array_shift($tempdata);
 
             // Check firts or last
-            if (is_int((int)$render_options['chartjs_last'])) {
+            if (!empty($render_options['chartjs_last']) && (int)$render_options['chartjs_last'] > 0) {
                 $tempdata = array_slice($tempdata, (int)$render_options['chartjs_last'] * -1);
-            } elseif (is_int((int)$render_options['chartjs_first'])) {
-                $tempdata = array_slice($tempdata, (int)$render_options['chartjs_last']);
+            } elseif (!empty($render_options['chartjs_first']) && (int)$render_options['chartjs_first'] > 0) {
+                $tempdata = array_slice($tempdata, 0, (int)$render_options['chartjs_first']);
             }
 
-            array_walk($tempdata, array('self', '_maybe_string_to_number')); // Get number values without format
-
-            $datasets[$letter]['name'] = $column; // First row is the name of column
-            $datasets[$letter]['data'] = $tempdata;
+            // Organice data
+            if ($letter == $tpcjs['params']['label']) {
+                $tpcjs['label']['name'] = $name;
+                $tpcjs['label']['data'] = $tempdata;
+                $tpcjs['label']['count'] = count($tempdata);
+                $tpcjs['label']['json'] = json_encode(array_values($tempdata));
+            } else {
+                array_walk($tempdata, array('self', '_maybe_string_to_number')); // Get number values without format
+                $tpcjs['sets'][$letter]['name'] = $name; // First row is the name of column
+                $tpcjs['sets'][$letter]['data'] = $tempdata;
+                $tpcjs['sets'][$letter]['count'] = count($tempdata);
+                $tpcjs['sets'][$letter]['json'] = str_replace('"NaN"', 'NaN', json_encode(array_values($tempdata), JSON_NUMERIC_CHECK));
+                $tpcjs['sets'][$letter]['color'] = current($colors);
+                if (!next($colors)) { reset($colors); }
+            }
         }
 
-
-
-        // label
-        if (!in_array(strtolower($render_options['chartjs_label']), array_keys($datasets))) {
-            // TODO manage error
-        }
-        $chartjs['label'] = json_encode($datasets[strtolower($render_options['chartjs_label'])]['data']);
 
         // show or not pointRadius
-        if (count($datasets[strtolower($render_options['chartjs_label'])]['data']) > 50) {
+        if ($tpcjs['label']['count'] > 50) {
             $chartjs['options']['pointRadius'] = 0;
         }
 
 
-
-        // Colors
-        $vcolors = explode(',', $render_options['chartjs_color']);
-        $acolors = [];
-        foreach ($vcolors as $key => $value) {
-            $acolors[] = $value;
-        }
-
-        // Data Sets
-        $vdata = explode(',', $render_options['chartjs_data']);
-
-        // Repeat colors to fill data
-        do {
-            $acolors = array_merge($acolors, $acolors);
-        } while (count($acolors) <= count($vdata));
-
-
-
-
-        // Data organi
-        foreach ($vdata as $key => $value) {
-            $letter = strtolower($value);
-            if (in_array($letter, array_keys($datasets))) {
-                $chartjs['sets'][] = array(
-                    'title' => $datasets[$letter]['name'],
-                    'color' => $acolors[$key],
-                    'json' => json_encode(array_values($datasets[$letter]['data']))
-                );
-            }
-        }
-
-
         // DataSets
-        foreach ($chartjs['sets'] as $dkey => $dvalue) {
+        foreach ($tpcjs['sets'] as $letter => $values) {
             $chartjs['ds'][] = "{
-                label: '{$dvalue['title']}',
+                label: '{$values['name']}',
                 fill: false,
-                borderColor: window.chartColors.{$dvalue['color']}.line,
-                backgroundColor: window.chartColors.{$dvalue['color']}.bg,
+                borderColor: window.chartColors.{$values['color']}.line,
+                backgroundColor: window.chartColors.{$values['color']}.bg,
                 pointRadius: {$chartjs['options']['pointRadius']},
                 borderWidth: {$chartjs['options']['borderWidth']},
-                data: {$dvalue['json']},
+                data: {$values['json']},
             }";
         }
         $chartjs['rend'] = implode(',', $chartjs['ds']);
-
 
         $htmlkey = str_ireplace('-', '_', $render_options['html_id']);
 
@@ -317,49 +315,26 @@ class TablePress_Chartjs
         var config_{$htmlkey} = {
 			type: '{$chart}',
 			data: {
-				labels: {$chartjs['label']},
+				labels: {$tpcjs['label']['json']},
 				datasets: [{$chartjs['rend']}]
 			},
 			options: {
 				responsive: true,
-				title: {
-                    text: '{$table['name']}',
-					display: false,
-				},
-				tooltips: {
-					mode: 'index',
-					intersect: false,
-				},
-				hover: {
-					mode: 'nearest',
-					intersect: true,
-				},
+				title: {display: true, text: '{$chartjs['options']['title']}'},
+				tooltips: {intersect: false, mode: 'index'},
+				hover: {intersect: true, mode: 'nearest'},
 				scales: {
 					xAxes: [{
 						display: true,
                         stacked: {$chartjs['options']['x_staked']},
-						scaleLabel: {
-                            display: false,
-                            labelString: '',
-                        },
-                        ticks: {
-                            callback: function(value, index, values) {
-                                return tpc_axis_number_format(value);
-                            }
-                        }
+						scaleLabel: { display: false, labelString: ''},
+                        ticks: {callback: function(value, index, values) {return tpc_axis_number_format(value);}}
 					}],
 					yAxes: [{
 						display: true,
                         stacked: {$chartjs['options']['y_staked']},
-						scaleLabel: {
-                            display: false,
-                            labelString: '',
-                        },
-                        ticks: {
-                            callback: function(value, index, values) {
-                                return tpc_axis_number_format(value);
-                            }
-                        }
+						scaleLabel: {display: false, labelString: ''},
+                        ticks: {callback: function(value, index, values) {return tpc_axis_number_format(value);}}
 					}]
 				}
 			}
@@ -383,15 +358,62 @@ JS;
      */
     protected static function _maybe_string_to_number(&$string)
     {
-        if(preg_match('/^[0-9.,$ ]+$/', $string)) {
+        if (empty($string)) {
+            if (is_numeric($string)) {
+                $string = 0;
+            } else {
+                $string = 'NaN';
+            }
+        } elseif (preg_match('/^[0-9.,$\- ]+$/', $string)) {
             $string = filter_var($string, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
             if ($string == (int) $string) {
                 $string = (int) $string;
             } else {
                 return (float) $string;
             }
-        } elseif (empty($string)) {
-            $string = 0;
         }
+
     }
+
+
+    protected static function array_sort($array, $on, $order=SORT_ASC)
+    {
+        $new_array = array();
+        $sortable_array = array();
+
+        if (count($array) > 0) {
+            foreach ($array as $k => $v) {
+                if (is_array($v)) {
+                    foreach ($v as $k2 => $v2) {
+                        if ($k2 == $on) {
+                            $sortable_array[$k] = $v2;
+                        }
+                    }
+                } else {
+                    $sortable_array[$k] = $v;
+                }
+            }
+
+            switch ($order) {
+                case SORT_ASC:
+                    asort($sortable_array);
+                break;
+                case SORT_DESC:
+                    arsort($sortable_array);
+                break;
+            }
+
+            foreach ($sortable_array as $k => $v) {
+                $new_array[$k] = $array[$k];
+            }
+        }
+
+        return $new_array;
+    }
+
+    protected static function _error_box ($param, $error, $type='warn') {
+        return "<div class=\"tablepress_chartjs_box $type\"><p><b>$param:</b> $error</p></div>";
+    }
+
+
 } // class TablePress_Chartjs
