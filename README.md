@@ -4,7 +4,6 @@
 Create a [Chart.js](https://www.chartjs.org/) using [TablePress](https://tablepress.org/) as data source for [WordPress](https://wordpress.org/download/)
 
 ![Banner](https://developarts.com/bl-content/uploads/tpchartjs_banner.png)
-
 ![GitHub](https://img.shields.io/github/license/developarts/tablepress_chartjs?style=for-the-badge)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/release/developarts/tablepress_chartjs?style=for-the-badge)
 ![GitHub All Releases](https://img.shields.io/github/downloads/developarts/tablepress_chartjs/total?style=for-the-badge)
@@ -52,7 +51,7 @@ Example:
 
     [tp-chartjs id=1 label=A data=B,C/]
 
-To create a chart from the TablePress ID `1` where labes are column `A`, and dataset points are columns `B` and `C`.
+To create a chart from the TablePress ID `1` where label are column `A`, and dataset points are columns `B` and `C`.
 
 ![TablePress Usage](https://developarts.com/bl-content/uploads/tp_usage.png)
 
@@ -158,11 +157,12 @@ If you like my work, please donate to help me.
 
 ## ToDo<a id="ToDo"></a>
 
-- [ ] Chart Title
-- [ ] Vertical Bar chart support
-- [ ] Pie chart support
-- [ ] Time Series chart support
-- [ ] Stacked chart support
+- [X] Chart Title
+- [X] Vertical Bar chart support
+- [X] Pie chart support
+- [X] Stacked chart support
+- [ ] Order data
+- [ ] Title of Chart show or not
 
 
 
