@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Colors now is controlled in JavaScript
 - Color array simplificated
 - Procedure to obtain datasets is now optimized
+- New directory 'tablepress_chartjs' for only plugin files
 
 ### Fix
 - `first` and `last` now works correctly

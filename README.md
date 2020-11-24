@@ -39,7 +39,7 @@ This plugin code base and idea is a modification of [TablePress Extension: Chart
 Prerequisite: The [TablePress](https://tablepress.org/) plugin
 
 1. [Download](https://github.com/developarts/tablepress_chartjs/releases/latest) and extract the ZIP file.
-2. Move the folder "tablepress_chartjs" to the "wp-content/plugins/" directory of your WordPress installation, e.g. via FTP.
+2. Upload the folder "tablepress_chartjs" to the "wp-content/plugins/" directory of your WordPress installation, e.g. via FTP.
 3. Activate the plugin "TablePress Extension: Chart.js" on the "Plugins" screen of your WordPress Dashboard.
 
 
