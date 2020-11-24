@@ -163,6 +163,7 @@ If you like my work, please donate to help me.
 - [X] Stacked chart support
 - [ ] Order data
 - [ ] Title of Chart show or not
+- [ ] Modern Dark Theme
 
 
 

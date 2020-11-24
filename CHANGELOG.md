@@ -16,14 +16,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CSS file for error boxes
 - Shows table title
 - On Datasets now distinguishes "" (empty) as `NaN` and `0` as value
+- Adding index.php with silence is golden security method
 
 ### Changed
 - Colors now is controlled in JavaScript
 - Color array simplificated
-- Procedure to obtain datasets now is optimized
+- Procedure to obtain datasets is now optimized
 
 ### Fix
-- `first` and `lst` now works correctly
+- `first` and `last` now works correctly
 
 ## [0.2.0] - 2020-11-06
 
