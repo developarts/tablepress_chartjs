@@ -162,6 +162,7 @@ If you like my work, please donate to help me.
 - [X] Pie chart support
 - [X] Stacked chart support
 - [ ] Order data
+- [ ] Detect Mobile devices
 - [ ] Title of Chart show or not
 - [ ] Modern Dark Theme
 
