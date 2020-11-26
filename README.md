@@ -3,7 +3,7 @@
 
 Create a [Chart.js](https://www.chartjs.org/) using [TablePress](https://tablepress.org/) as data source for [WordPress](https://wordpress.org/download/)
 
-![Banner](https://developarts.com/bl-content/uploads/tpchartjs_banner.png)
+![Banner](https://developarts.com/bl-content/uploads/banner_tablepress_chartjs.png)
 ![GitHub](https://img.shields.io/github/license/developarts/tablepress_chartjs?style=for-the-badge)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/release/developarts/tablepress_chartjs?style=for-the-badge)
 ![GitHub All Releases](https://img.shields.io/github/downloads/developarts/tablepress_chartjs/total?style=for-the-badge)
