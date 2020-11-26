@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+
+## [0.3.0] - 2020-11-25
+
 ### Added
 - new JavaScript tools file
 - Support Vertical Bar charts
@@ -48,5 +52,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 
 [Unreleased]: https://github.com/developarts/tablepress_chartjs/tree/main
+[0.3.0]: https://github.com/developarts/tablepress_chartjs/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/developarts/tablepress_chartjs/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/developarts/tablepress_chartjs/commit/0ae2f6e3f8bfa2c9982f9b4bdde2a1fb97fa7b67
