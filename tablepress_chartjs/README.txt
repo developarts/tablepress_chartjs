@@ -5,8 +5,8 @@ Tags: tablepress, tablepress-extension, chart, charts, chartjs
 Requires at least: 1.0.0
 Tested up to: 3.4
 Stable tag: 4.3
-License: GPLv3 or later
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Create a Chart.js using TablePress as data source for WordPress
 
