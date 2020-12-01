@@ -4,13 +4,12 @@
 Create a [Chart.js](https://www.chartjs.org/) using [TablePress](https://tablepress.org/) as data source for [WordPress](https://wordpress.org/download/)
 
 ![Banner](https://developarts.com/bl-content/uploads/banner_tablepress_chartjs.png)
-![GitHub](https://img.shields.io/github/license/developarts/tablepress_chartjs?style=for-the-badge)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/release/developarts/tablepress_chartjs?style=for-the-badge)
-![GitHub All Releases](https://img.shields.io/github/downloads/developarts/tablepress_chartjs/total?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/developarts/tablepress_chartjs?style=for-the-badge)
 [![Donate with PayPal](https://img.shields.io/badge/PayPal-Donate-yellow.svg?style=for-the-badge)](https://www.paypal.me/developarts)
 
 
-## Index
+## 📚 Index
 
 - [About](#About)
 - [Install](#Install)
@@ -27,14 +26,14 @@ Create a [Chart.js](https://www.chartjs.org/) using [TablePress](https://tablepr
 - [Donate to Developer](#Donate)
 - [ToDo](#ToDo)
 - [Credits](#Credits)
-- [Changelog](https://github.com/developarts/tablepress_chartjs/blob/main/README.md)
+- [Changelog](https://github.com/developarts/tablepress_chartjs/blob/main/CHANGELOG.md)
 
-## About<a id="About"></a>
+## 📄 About<a id="About"></a>
 
 This plugin code base and idea is a modification of [TablePress Extension: Chartist](https://github.com/soderlind/tablepress_chartist).
 
 
-## Install<a id="Install"></a>
+## 💻 Install<a id="Install"></a>
 
 Prerequisite: The [TablePress](https://tablepress.org/) plugin
 
@@ -43,7 +42,7 @@ Prerequisite: The [TablePress](https://tablepress.org/) plugin
 3. Activate the plugin "TablePress Extension: Chart.js" on the "Plugins" screen of your WordPress Dashboard.
 
 
-## Usage<a id="Usage"></a>
+## 📈 Usage<a id="Usage"></a>
 
 Use the Shortcode `[tp-chartjs id=N /]`
 
@@ -60,7 +59,7 @@ Result:
 ![Chartjs Usage](https://developarts.com/bl-content/uploads/chart_usage.png)
 
 
-## Parameters<a id="Parameters"></a>
+## 📑 Parameters<a id="Parameters"></a>
 
 #### `id`<a id="param_id"></a>
 
@@ -148,14 +147,14 @@ Declare that only use the last `{n}` rows of data
 * **Default:** All data
 
 
-## Donate to Developer<a id="Donate"></a>
+## 💳 Donate to Developer<a id="Donate"></a>
 
-If you like my work, please donate to help me.
+If you like my work, please donate.
 
 [![Donate to Developer](https://developarts.com/bl-content/uploads/button-donate.png)](https://www.paypal.com/donate?hosted_button_id=ZXY9DM6PTWB8C)
 
 
-## ToDo<a id="ToDo"></a>
+## ✅ ToDo<a id="ToDo"></a>
 
 - [X] Chart Title
 - [X] Vertical Bar chart support
@@ -168,7 +167,7 @@ If you like my work, please donate to help me.
 
 
 
-## Credits<a id="Credits"></a>
+## 🏆 Credits<a id="Credits"></a>
 
 * Muriz Serifovic for creating [TablePress Extension: Chartist](https://github.com/soderlind/tablepress_chartist).
 * Tobias Bäthge for creating [TablePress](https://tablepress.org/)
